@@ -1193,9 +1193,10 @@ func (t *http2Client) operateHeaders(frame *http2.MetaHeadersFrame) {
 		if t.statsHandler != nil {
 			if isHeader {
 				inHeader := &stats.InHeader{
-					Client:     true,
-					WireLength: int(frame.Header().Length),
-					Header:     s.header.Copy(),
+					Client:      true,
+					WireLength:  int(frame.Header().Length),
+					Header:      s.header.Copy(),
+					Compression: s.recvCompress,
 				}
 				t.statsHandler.HandleRPC(s.ctx, inHeader)
 			} else {
