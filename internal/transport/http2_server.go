@@ -816,7 +816,8 @@ func (t *http2Server) writeHeaderLocked(s *Stream) error {
 		// Note: WireLength is not set in outHeader.
 		// TODO(mmukhi): Revisit this later, if needed.
 		outHeader := &stats.OutHeader{
-			Header: s.header.Copy(),
+			Header:      s.header.Copy(),
+			Compression: s.sendCompress,
 		}
 		t.stats.HandleRPC(s.Context(), outHeader)
 	}

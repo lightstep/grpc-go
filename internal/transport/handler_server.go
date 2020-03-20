@@ -292,7 +292,8 @@ func (ht *serverHandlerTransport) WriteHeader(s *Stream, md metadata.MD) error {
 	if err == nil {
 		if ht.stats != nil {
 			ht.stats.HandleRPC(s.Context(), &stats.OutHeader{
-				Header: md.Copy(),
+				Header:      md.Copy(),
+				Compression: s.sendCompress,
 			})
 		}
 	}
